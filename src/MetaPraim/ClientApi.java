@@ -41,7 +41,7 @@ public class ClientApi extends JFrame {
         repaint();
     }
     
-    public void addComponents() {
+    public void addComponents() { //создание оконного приложения
         DBCon = new DBConnect();
         try {
             cont = getContentPane();
@@ -56,14 +56,14 @@ public class ClientApi extends JFrame {
             showDep = new JButton("Hierarchy");
             showDep.setBounds(330, 15, 100, 40);
             cont.add(showDep);
-            showDep.addActionListener((ActionEvent e) -> {
+            showDep.addActionListener((ActionEvent e) -> {  //вывод всех отделов
                 resultArea.setText(DBCon.selectSt(DBCon.selectDep()).toLowerCase());
             });
             
             showEmpl = new JButton("Employee");
             showEmpl.setBounds(330, 60, 100, 40);
             cont.add(showEmpl);
-            showEmpl.addActionListener((ActionEvent e) -> {
+            showEmpl.addActionListener((ActionEvent e) -> {  //вывод всех сотрудников
                 if (addAreaDep.getText().isEmpty()) { 
                 resultArea.setText(DBCon.selectSt(DBCon.selectEmpl()));
                 } else {
@@ -100,7 +100,7 @@ public class ClientApi extends JFrame {
             cont.add(addNewDep);
             addNewDep.addActionListener((ActionEvent e) -> {
                 if (!addAreaDep.getText().isEmpty()) {
-                    DBCon.insertSt(DBCon.insertDep(addAreaDep.getText()));
+                    DBCon.insertSt(DBCon.insertDep(addAreaDep.getText()));  //добавление нового отдела
                     addAreaDep.setText("New department was added");
                 } else {
                     addAreaDep.setText("This field can not be empty!");
@@ -110,7 +110,7 @@ public class ClientApi extends JFrame {
             addNewEmpl = new JButton("New employee");
             addNewEmpl.setBounds(270, 180, 120, 40);
             cont.add(addNewEmpl);
-            addNewEmpl.addActionListener((ActionEvent e) -> {
+            addNewEmpl.addActionListener((ActionEvent e) -> {  //добавление нового сотрудника
                 if (addAreaDep.getText().isEmpty() || addAreaEmp.getText().isEmpty()) {
                     addAreaDep.setText("These fields can not be empty!");
                 } else {
