@@ -37,20 +37,20 @@ public class DBConnect {
         }
     }
     
-    public String selectDep() {  
+    public String selectDep() {  //возвращает select-запрос для выборки названий отделов
         return "SELECT DEPARTMENTS.NAME_DEP FROM DEPARTMENTS";
     }
     
-    public String selectEmpl() {
+    public String selectEmpl() {  //возвращает select-запрос для выборки имен сотрудников
         return "SELECT EMPLOYEE.NAME_EMPL FROM EMPLOYEE";
     }
     
-    public String selectEmplByDep(String dep) {
+    public String selectEmplByDep(String dep) {  //возвращает select-запрос для выборки имен сотрудников по названию отдела
         return "SELECT EMPLOYEE.NAME_EMPL FROM EMPLOYEE JOIN DEPARTMENTS ON EMPLOYEE.ID_DEP = DEPARTMENTS.ID_DEP\n" +
                "WHERE DEPARTMENTS.NAME_DEP = '" + dep + "'";
     }
     
-    public int nextIdDep() {
+    public int nextIdDep() {  //возвращает следующий свободный id в таблице отделов
         int id = 0;
         String sql = "SELECT MAX(DEPARTMENTS.ID_DEP) FROM DEPARTMENTS";
         try {
@@ -63,7 +63,7 @@ public class DBConnect {
         return (id + 1);
     }
     
-    public int nextIdEmpl() {
+    public int nextIdEmpl() {  //возвращает следующий свободный id в таблице сотрудников
         int id = 0;
         String sql = "SELECT MAX(EMPLOYEE.ID_EMPL) FROM EMPLOYEE";
         try {
@@ -76,7 +76,7 @@ public class DBConnect {
         return (id + 1);
     }
     
-    public int getFK(String dep) {
+    public int getFK(String dep) { //возвращает fk в таблице отделов по названию отдела
         int id = 0;
         String sql = "SELECT DEPARTMENTS.ID_DEP FROM DEPARTMENTS WHERE DEPARTMENTS.NAME_DEP = '" + dep + "'";
         try {
@@ -89,15 +89,15 @@ public class DBConnect {
         return id;
     }
     
-    public String insertDep(String value) {
+    public String insertDep(String value) {  //возвращает insert-запрос для таблицы отделов
         return "INSERT INTO DEPARTMENTS VALUES (" + nextIdDep() + ", '" + value + "')";
     }
     
-    public String insertEmpl(String name, String dep) {
+    public String insertEmpl(String name, String dep) {  //возвращает insert-запрос для таблицы сотрудников
         return "INSERT INTO EMPLOYEE VALUES (" + nextIdEmpl() + ", '" + name + "', " + getFK(dep) + ")";
     }
         
-    public void insertSt(String sql) {
+    public void insertSt(String sql) {  //выполняет insert-запрос
         try {
             st.addBatch(sql);
             st.executeBatch();
@@ -106,7 +106,7 @@ public class DBConnect {
         }
     }
     
-    public String selectSt(String sql) {
+    public String selectSt(String sql) {  //выполняет select-запрос
         StringBuilder ans = new StringBuilder();
         try {
             rs = st.executeQuery(sql);
